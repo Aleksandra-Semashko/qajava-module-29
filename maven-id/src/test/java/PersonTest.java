@@ -1,20 +1,17 @@
-import org.testng.annotations.AfterMethod; // загружается аннотация @AfterMethod
-import org.testng.annotations.BeforeMethod; // загружается аннотация @BeforeMethod
-import org.testng.annotations.Test; // загружается аннотация @AfterMethod
+import org.example.Person;
+import org.testng.IResultMap;
+import org.testng.annotations.Test;
+import org.testng.annotations.DataProvider;
+import static org.testng.Assert.assertTrue;
 
 public class PersonTest {
 
-    @BeforeMethod
-    void beforeClass() {
-        System.out.println("Перед каждым набором теста напечатать текущее время");
-    }
+    @DataProvider(name="age")
+    int[] age ={-1,0,10,12,13,15,19,20,45};
 
-    @AfterMethod
-    void afterClass() {
-        System.out.println("После каждого набора теста напечатать текущее время");
-    }
-
-    @Test
-    public void TestMethod(String[] args) {
+    @Test (dataProvider = "age")
+    public void testIsTeenager(int age) {
+        boolean result = Person.isTeenager(age);
+        assertTrue( age>=13&&<=19);
     }
 }
